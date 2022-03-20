@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "499042918172",
+    "project_id": "rani-gold-2268b",
+    "storage_bucket": "rani-gold-2268b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499042918172:android:e1eff612d50fce64f164d9",
+        "android_client_info": {
+          "package_name": "lucidcraft.rani_gold_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499042918172-96icanbh8692vm2btfth6ro90vplkoob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwodnVH2kBQeDpoD99H4ocAMPdr8aG-qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499042918172-96icanbh8692vm2btfth6ro90vplkoob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
