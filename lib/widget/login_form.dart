@@ -143,7 +143,7 @@ class _LoginFormState extends State<LoginForm> {
             Material(
               elevation: 1.0,
               borderRadius: BorderRadius.circular(12.0),
-              color: Theme.of(context).accentColor,
+              color:Colors.white,
               child: MaterialButton(
                 minWidth: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

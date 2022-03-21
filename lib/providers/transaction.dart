@@ -95,7 +95,6 @@ class Transaction with ChangeNotifier {
         if (transactionModel.discount != 0) {
           newbalance = newbalance - transactionModel.discount;
         }
-        
       } else if (transactionModel.transactionType == 1) {
         newbalance = oldBalance - transactionModel.amount;
       }
@@ -186,6 +185,10 @@ class Transaction with ChangeNotifier {
         newbalance = oldBalance - transactionModel.amount;
       }
 
+      await collectionReferenceUser.doc(transactionModel.customerId).update({
+        'balance': newbalance,
+      });
+
       await collectionReference.doc(id).update({
         'customerName': transactionModel.customerName,
         'customerId': transactionModel.customerId,
@@ -194,11 +197,6 @@ class Transaction with ChangeNotifier {
         'note': transactionModel.note,
         'invoiceNo': transactionModel.invoiceNo,
         'category': transactionModel.category,
-        
-      });
-
-      await collectionReferenceUser.doc(transactionModel.customerId).update({
-        'balance': newbalance,
       });
     } catch (e) {
       print(e);
@@ -292,11 +290,11 @@ class Transaction with ChangeNotifier {
       print("iam here inside");
       print(transType);
       print(newbalance);
-
-      await collectionReference.doc(id).delete();
       await collectionReferenceUser.doc(usrId).update({
         'balance': newbalance,
       });
+      await collectionReference.doc(id).delete();
+
       notifyListeners();
     } catch (e) {
       print(e);

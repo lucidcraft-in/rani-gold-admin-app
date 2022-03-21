@@ -18,6 +18,7 @@ import './screens/customer/pay_amount.dart';
 import './screens/customer/purchase_amount.dart';
 import './screens/staff/create_staff_screen.dart';
 import './screens/staff/staff_list_screen.dart';
+import './screens/auth/password_change_screen.dart';
 
 import './providers/slider.dart' as slid;
 import './providers/goldrate.dart';
@@ -86,7 +87,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Rani Jewellery',
           theme: ThemeData(
             primarySwatch: buildMaterialColor(Color(0xFF612e3e)),
-            accentColor: Colors.white,
+            accentColor: Colors.amber,
             fontFamily: 'Lato',
           ),
           home: _checkValue == true ? HomeScreen() : LoginScreen(),
@@ -102,7 +103,8 @@ class _MyAppState extends State<MyApp> {
             GoldRateScreen.routeName: (ctx) => GoldRateScreen(),
             ViewSlidersScreen.routeName: (ctx) => ViewSlidersScreen(),
             StaffListScreen.routeName: (ctx) => StaffListScreen(),
-            CreateStaffScreen.routeName: (ctx) => CreateStaffScreen()
+            CreateStaffScreen.routeName: (ctx) => CreateStaffScreen(),
+            PasswordChangeScreen.routeName: (ctx) => PasswordChangeScreen()
             // UploadSlideScreen.routeName: (ctx) => UploadSlideScreen(),
           }),
     );

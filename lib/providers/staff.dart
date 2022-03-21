@@ -79,6 +79,17 @@ class Staff with ChangeNotifier {
     }
   }
 
+Future<void> updatePassword(String id, StaffModel staffModel) async {
+    try {
+      await collectionReference.doc(id).update({
+        
+        'password': staffModel.password,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<List> read() async {
     QuerySnapshot querySnapshot;
     List userlist = [];

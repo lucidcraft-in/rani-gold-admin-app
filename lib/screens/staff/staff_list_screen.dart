@@ -61,7 +61,7 @@ class _StaffListScreenState extends State<StaffListScreen> {
           children: <Widget>[
             Expanded(
                 child: staffList != null
-                    ? ListView.builder(
+                    ? staffList.length > 0 ? ListView.builder(
                         itemCount: staffList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
@@ -105,7 +105,7 @@ class _StaffListScreenState extends State<StaffListScreen> {
                               )
                             ],
                           );
-                        })
+                        }):Center(child: Text("No data Available",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),)
                     : Center(
                         child: CircularProgressIndicator(),
                       ))

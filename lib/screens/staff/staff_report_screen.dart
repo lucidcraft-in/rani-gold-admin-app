@@ -45,17 +45,17 @@ class _StaffReprotScreenState extends State<StaffReprotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(" Staff Report"),
+        title: Text("Report"),
         actions: [
-          IconButton(
-            icon: Icon(Icons.person_pin),
-            onPressed: () {
-              // showPlatformSearch(
-              //   context: context,
-              //   delegate: MaterialSearchDelegate(search),
-              // );
-            },
-          ),
+          // IconButton(
+          //   icon: Icon(Icons.person_pin),
+          //   onPressed: () {
+          //     showPlatformSearch(
+          //       context: context,
+          //       delegate: MaterialSearchDelegate(search),
+          //     );
+          //   },
+          // ),
         ],
       ),
       body: Column(
@@ -99,7 +99,7 @@ class _StaffReprotScreenState extends State<StaffReprotScreen> {
           ),
           Expanded(
               child: userLst != null
-                  ? ListView.builder(
+                  ? userLst.length > 0 ? ListView.builder(
                       itemCount: userLst.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
@@ -111,9 +111,15 @@ class _StaffReprotScreenState extends State<StaffReprotScreen> {
                             //    child: Card(elevation: 5,),
                             //  )
                             ListTile(
-                              title: Text(' ${userLst[index]['name']}'),
-                              subtitle:
-                                  Text(userLst[index]['balance'].toString()),
+                              title: Row(children: [
+                                Text("User Name : ",style: TextStyle(fontSize: 13,color: Colors.grey[700]),),
+                                Text(' ${userLst[index]['name']}',style: TextStyle(fontSize: 17),)
+                              ],),
+                              subtitle: Row(children: [
+                                 Text("Collection Amount : ",style: TextStyle(fontSize: 13),),
+                                Text(userLst[index]['userMonthcollection'].toString(),style: TextStyle(color: Colors.black,fontSize: 15),)
+                              ],),
+                                  
                               leading:
                                   CircleAvatar(child: Icon(Icons.account_box)),
                               onTap: () {
@@ -143,7 +149,7 @@ class _StaffReprotScreenState extends State<StaffReprotScreen> {
                             ),
                           ],
                         );
-                      })
+                      }):Center(child: Text("No data Available",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),)
                   : Center(
                       child: CircularProgressIndicator(),
                     )),

@@ -12,7 +12,7 @@ import './slider/slider_view.dart';
 import './staff/staff_list_screen.dart';
 import './auth/login_screen.dart';
 import 'package:http/http.dart' as http;
-
+import './auth/password_change_screen.dart';
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home-screen';
   @override
@@ -136,6 +136,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                   ListTile(
+                    title: const Text('Change Password'),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(PasswordChangeScreen.routeName);
+                    },
+                  ),
+                  ListTile(
                     title: const Text('Logout'),
                     onTap: () {
                       logout();
@@ -168,6 +174,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: const Text('Customer'),
                     onTap: () {
                       Navigator.of(context).pushNamed(CustomerScreen.routeName);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Change Password'),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(PasswordChangeScreen.routeName);
                     },
                   ),
                   ListTile(

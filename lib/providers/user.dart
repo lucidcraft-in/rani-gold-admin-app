@@ -142,10 +142,9 @@ class User with ChangeNotifier {
       querySnapshot = await collectionReference.orderBy('cust_id').get();
       var user =
           querySnapshot.docs.where((doc) => doc['cust_id'] == userModel.custId);
-     
+
       if (changeCustIdIS == true) {
         if (user.length == 0) {
-       
           await collectionReference.doc(id).update({
             'name': userModel.name,
             'cust_id': userModel.custId,
@@ -276,15 +275,14 @@ class User with ChangeNotifier {
     QuerySnapshot querySnapshotTrans;
     double totalAmount = 0;
     List userlist = [];
+    List staffIds = [];
+    List transList = [];
     DateTime passedDate = selectedDate;
     final lastDayOfMonth =
         DateTime(selectedDate.year, selectedDate.month + 1, 0);
     final firstDayofMonth = DateTime(selectedDate.year, lastDayOfMonth.month);
     //      DateTime.parse(lastDayOfMonth.year-${lastDayOfMonth.month}-${1}");
 
-    print(selectedDate);
-    print(lastDayOfMonth);
-    print(firstDayofMonth);
     try {
       querySnapshot = await collectionReference.orderBy('timestamp').get();
 
@@ -300,15 +298,76 @@ class User with ChangeNotifier {
                 dbDate.isAfter(firstDayofMonth)) {
               if (docss['transactionType'] == 0) {
                 totalAmount = totalAmount + docss['amount'];
+                staffIds.add(docss['customerId']);
+                Map tra = {
+                  "custId": docss['customerId'],
+                  "amount": docss['amount'],
+                };
+                transList.add(tra);
               }
             }
           }
         }
       }
-      print(totalAmount);
+      
+      var filteredCustIds = staffIds.toSet().toList();
+
+      List userTotalbalnaceList = [];
+      double tempbalance = 0;
+      if (filteredCustIds.length > 0) {
+        for (var k = 0; k < filteredCustIds.length; k++) {
+          for (var j = 0; j < transList.length; j++) {
+            if (filteredCustIds[k] == transList[j]["custId"]) {
+              tempbalance = tempbalance + transList[j]["amount"];
+            }
+          }
+          userTotalbalnaceList
+              .add({"custId": filteredCustIds[k], "totalAmount": tempbalance});
+          tempbalance = 0;
+        }
+      }
+    
       if (querySnapshot.docs.isNotEmpty) {
         for (var doc in querySnapshot.docs.toList()) {
           if (staffId == doc['staffId']) {
+            for (var i = 0; i < userTotalbalnaceList.length; i++) {
+              if (userTotalbalnaceList[i]["custId"] == doc.id) {
+                Map a = {
+                  "id": doc.id,
+                  "name": doc['name'],
+                  "custId": doc["cust_id"],
+                  "phoneNo": doc["phone_no"],
+                  "address": doc["address"],
+                  "place": doc["place"],
+                  "balance": doc["balance"],
+                  "staffId": doc["staffId"],
+                  "schemeType": doc["schemeType"],
+                  "totalAmount": totalAmount,
+                  "userMonthcollection": userTotalbalnaceList[i]["totalAmount"],
+                };
+                userlist.add(a);
+              }
+            }
+          }
+        }
+       
+        return userlist;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List> readBycustd(String custId) async {
+    QuerySnapshot querySnapshot;
+    List userlist = [];
+
+    try {
+      querySnapshot = await collectionReference.orderBy('timestamp').get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        for (var doc in querySnapshot.docs.toList()) {
+          if (custId == doc.id) {
             Map a = {
               "id": doc.id,
               "name": doc['name'],
@@ -319,7 +378,6 @@ class User with ChangeNotifier {
               "balance": doc["balance"],
               "staffId": doc["staffId"],
               "schemeType": doc["schemeType"],
-              "totalAmount": totalAmount,
             };
             userlist.add(a);
           }

@@ -37,7 +37,7 @@ class _StaffViewScreenState extends State<StaffViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(" user of ${widget.staff['staffName']}"),
+        title: Text(" users of ${widget.staff['staffName']}"),
         actions: [
          
         ],
@@ -55,7 +55,7 @@ class _StaffViewScreenState extends State<StaffViewScreen> {
                             db: widget.db, staff: widget.staff)));
               },
               child: Text(
-                "Staff Reports",
+                "Report",
                 style: TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
@@ -65,7 +65,7 @@ class _StaffViewScreenState extends State<StaffViewScreen> {
           ),
           Expanded(
               child: userLst != null
-                  ? ListView.builder(
+                  ? userLst.length > 0 ? ListView.builder(
                       itemCount: userLst.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
@@ -108,7 +108,7 @@ class _StaffViewScreenState extends State<StaffViewScreen> {
                             )
                           ],
                         );
-                      })
+                      }):Center(child: Container( padding: EdgeInsets.all(10), child: Text("No data Available",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),)),)
                   : Center(
                       child: CircularProgressIndicator(),
                     ))
