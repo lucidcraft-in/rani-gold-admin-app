@@ -15,7 +15,6 @@ class CustomerScreen extends StatefulWidget {
 }
 
 class _CustomerScreenState extends State<CustomerScreen> {
-
   User db;
   List userList = [];
   // List filterList = [];
@@ -34,7 +33,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
   bool _IsSearching;
 
   final TextEditingController _searchQuery = new TextEditingController();
-  initialise()  {
+  initialise() {
     db = User();
     db.initiliase();
     db.read().then((value) => {
@@ -105,12 +104,16 @@ class _CustomerScreenState extends State<CustomerScreen> {
                     onChanged: (string) {
                       setState(() {
                         filterList = userList
-                            .where((element) => (element['custId']
-                                .toLowerCase()
-                                .contains(string.toLowerCase()))||(element['name']
-                                .toLowerCase()
-                                .contains(string.toLowerCase())))
+                            .where((element) =>
+                                (element['custId']
+                                    .toLowerCase()
+                                    .contains(string.toLowerCase())) ||
+                                (element['name']
+                                    .toLowerCase()
+                                    .contains(string.toLowerCase())))
                             .toList();
+                        print("check filterList.length");
+                        print(filterList.length);
                       });
                     },
                   );
@@ -141,7 +144,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
           children: <Widget>[
             Expanded(
                 child: userList != null
-                    ? ListView.builder(
+                    ? filterList.length !=0 ? ListView.builder(
                         itemCount: filterList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
@@ -154,16 +157,19 @@ class _CustomerScreenState extends State<CustomerScreen> {
                               //  )
                               ListTile(
                                 title: Text(' ${filterList[index]['name']}'),
-                                subtitle:Container(
-                                  padding: EdgeInsets.only(top: 10,left: 6),
+                                subtitle: Container(
+                                  padding: EdgeInsets.only(top: 10, left: 6),
                                   child: Column(
-                                   
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                     Text(filterList[index]['custId']),
-                                     SizedBox(height: 15,),
-                                     Text(filterList[index]['schemeType']),
-                                  ],),
+                                      Text(filterList[index]['custId']),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(filterList[index]['schemeType']),
+                                    ],
+                                  ),
                                 ),
                                 leading: CircleAvatar(
                                     child: Icon(Icons.account_box)),
@@ -198,10 +204,13 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                   ),
                                 ),
                               ),
-                              Divider(height: 20,)
+                              Divider(
+                                height: 20,
+                              ),
+                             
                             ],
                           );
-                        })
+                        }):Container(padding: EdgeInsets.all(5),child: Center(child: Text("No Result Found !",style: TextStyle(fontWeight: FontWeight.bold,),),),)
                     : Center(
                         child: CircularProgressIndicator(),
                       ))

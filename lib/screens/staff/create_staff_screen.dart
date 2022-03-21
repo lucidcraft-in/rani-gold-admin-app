@@ -163,6 +163,9 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter Phone ';
                           }
+                          else if(value.length !=10 ){
+                            return 'Please enter  valid number ';
+                          }
                           return null;
                         },
                         onSaved: (value) {
@@ -226,6 +229,16 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 16),
                       child: TextFormField(
+                         validator: (value) {
+                            if (value == null || value.isEmpty) {
+                            return 'Please enter password ';
+                          }
+                          else if (value.length <= 5 ) {
+                            return 'Password must be more than 5 charater ';
+                          }
+                         
+                          return null;
+                        },
                         onSaved: (value) {
                          _staff = StaffModel(
                             staffName: _staff.staffName,

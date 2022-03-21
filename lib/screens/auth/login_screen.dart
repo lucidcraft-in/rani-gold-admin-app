@@ -13,6 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
         ),
@@ -40,10 +41,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontFamily: 'Segan'),
                           ),
                           Text(
-                            " Jewellery",
+                            "Jewellery",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 13,
+                                fontSize: 15,
                                 fontFamily: 'Segan',
                                 color: Colors.white70),
                           )

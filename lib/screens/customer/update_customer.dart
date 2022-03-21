@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user.dart';
@@ -16,7 +18,8 @@ class UpdateCustomerScreen extends StatefulWidget {
 
 class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
   final _formKey = GlobalKey<FormState>();
- String selectedValue = 'Monthly';
+  String selectedValue = 'Monthly';
+  bool changeCustIdIS = false;
   var _isLoading = false;
   var _user = UserModel(
     id: '',
@@ -28,21 +31,22 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
     schemeType: '',
   );
 
-    @override
+  @override
   void initState() {
     super.initState();
-   
+
     selectedValue = widget.user['schemeType'];
 
-     _user = UserModel(
-                          name: _user.name,
-                          custId: _user.custId,
-                          phoneNo: _user.phoneNo,
-                          address: _user.address,
-                          place: _user.place,
-                          schemeType: selectedValue,
-                        );
+    _user = UserModel(
+      name: _user.name,
+      custId: _user.custId,
+      phoneNo: _user.phoneNo,
+      address: _user.address,
+      place: _user.place,
+      schemeType: selectedValue,
+    );
   }
+
   Future<void> _delete() async {
     try {
       try {
@@ -99,14 +103,26 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
       _isLoading = true;
     });
     try {
-      print(_user);
-      Provider.of<User>(context, listen: false)
-          .update(widget.user['id'], _user);
-      final snackBar = SnackBar(
-        content: const Text('Update successfully!'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      
+      //  var result = await Provider.of<User>(context, listen: false)
+      //     .update(widget.user['id'], _user, changeCustIdIS);
+      var result = await Provider.of<User>(context, listen: false).update(widget.user['id'], _user, changeCustIdIS);
+          
+      if (result == false) {
+        final snackBar = SnackBar(content: const Text('Saved successfully!'));
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+        setState(() {
+          _isLoading = false;
+          // Navigator.of(context).pop();
+          Navigator.pushNamed(context, CustomerScreen.routeName);
+        });
+      } else {
+        final snackBar = SnackBar(
+          content: const Text('Customer id is exist!'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     } catch (err) {
       print('error check =======================');
       print(err);
@@ -126,12 +142,12 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
         ),
       );
     }
-    setState(() {
-          _isLoading = false;
-          // Navigator.of(context).pop();
-          
-          Navigator.pushNamed(context, CustomerScreen.routeName);
-        });
+    // setState(() {
+    //   _isLoading = false;
+    //   // Navigator.of(context).pop();
+
+    //   Navigator.pushNamed(context, CustomerScreen.routeName);
+    // });
   }
 
   @override
@@ -169,7 +185,7 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
                           phoneNo: _user.phoneNo,
                           address: _user.address,
                           place: _user.place,
-                           schemeType: _user.schemeType,
+                          schemeType: _user.schemeType,
                         );
                       },
                       decoration: const InputDecoration(
@@ -200,6 +216,11 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
                         }
                         return null;
                       },
+                      onChanged: (value) {
+                        setState(() {
+                          changeCustIdIS = true;
+                        });
+                      },
                       onSaved: (value) {
                         _user = UserModel(
                           name: _user.name,
@@ -207,7 +228,7 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
                           phoneNo: _user.phoneNo,
                           address: _user.address,
                           place: _user.place,
-                           schemeType: _user.schemeType,
+                          schemeType: _user.schemeType,
                         );
                       },
                       decoration: const InputDecoration(
@@ -245,7 +266,7 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
                           phoneNo: value,
                           address: _user.address,
                           place: _user.place,
-                           schemeType: _user.schemeType,
+                          schemeType: _user.schemeType,
                         );
                       },
                       decoration: const InputDecoration(
@@ -278,7 +299,7 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
                           phoneNo: _user.phoneNo,
                           address: value,
                           place: _user.place,
-                           schemeType: _user.schemeType,
+                          schemeType: _user.schemeType,
                         );
                       },
                       decoration: const InputDecoration(
@@ -310,7 +331,7 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
                           phoneNo: _user.phoneNo,
                           address: _user.address,
                           place: value,
-                           schemeType: _user.schemeType,
+                          schemeType: _user.schemeType,
                         );
                       },
                       decoration: const InputDecoration(
@@ -330,53 +351,53 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
                       ),
                     ),
                   ),
-                    Padding(
-                      padding: const EdgeInsets.all(9.0),
-                      child: InputDecorator(
-                        decoration: InputDecoration(
-                          labelText: 'Select Sheme Type',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          contentPadding: EdgeInsets.all(10),
-                        ),
-                        child: ButtonTheme(
-                          materialTapTargetSize: MaterialTapTargetSize.padded,
-                          child: DropdownButton<String>(
-                            hint: const Text("Sheme Type"),
-                            isExpanded: true,
-                            value: selectedValue,
-                            elevation: 16,
-                            underline: DropdownButtonHideUnderline(
-                              child: Container(),
-                            ),
-                            onChanged: (String newValue) {
-                              setState(() {
-                                selectedValue = newValue;
-                              });
-
-                              _user = UserModel(
-                                name: _user.name,
-                                custId: _user.custId,
-                                phoneNo: _user.phoneNo,
-                                address: _user.address,
-                                place: _user.place,
-                                schemeType: selectedValue,
-                              );
-                            },
-                            items: <String>[
-                              'Daily',
-                              'Weekly',
-                              'Monthly',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                  Padding(
+                    padding: const EdgeInsets.all(9.0),
+                    child: InputDecorator(
+                      decoration: InputDecoration(
+                        labelText: 'Select Sheme Type',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                        contentPadding: EdgeInsets.all(10),
+                      ),
+                      child: ButtonTheme(
+                        materialTapTargetSize: MaterialTapTargetSize.padded,
+                        child: DropdownButton<String>(
+                          hint: const Text("Sheme Type"),
+                          isExpanded: true,
+                          value: selectedValue,
+                          elevation: 16,
+                          underline: DropdownButtonHideUnderline(
+                            child: Container(),
                           ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              selectedValue = newValue;
+                            });
+
+                            _user = UserModel(
+                              name: _user.name,
+                              custId: _user.custId,
+                              phoneNo: _user.phoneNo,
+                              address: _user.address,
+                              place: _user.place,
+                              schemeType: selectedValue,
+                            );
+                          },
+                          items: <String>[
+                            'Daily',
+                            'Weekly',
+                            'Monthly',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
                       ),
                     ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Row(

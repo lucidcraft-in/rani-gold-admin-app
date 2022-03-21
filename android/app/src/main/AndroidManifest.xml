@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lucidcraft.rani_gold_admin">
    <application
-        android:label="rani_gold_admin"
+        android:label="Rani Jewellery Admin"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

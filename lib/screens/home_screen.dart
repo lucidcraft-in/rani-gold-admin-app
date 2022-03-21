@@ -23,25 +23,27 @@ class _HomeScreenState extends State<HomeScreen> {
   var staff;
   int staffType;
 
-  
+  bool _checkValue;
 
   @override
   void initState() {
     super.initState();
- 
-
   }
 
-
-  
-
-
-  
+  redirectLoginPage() {
+    print('_checkValue');
+    print(_checkValue);
+    if (_checkValue == true) {
+      Navigator.of(context).pushNamed(HomeScreen.routeName);
+    } else {
+      Navigator.of(context).pushNamed(LoginScreen.routeName);
+    }
+  }
 
   @override
   void didChangeDependencies() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    _checkValue = prefs.containsKey('staff');
     setState(() {
       staff = jsonDecode(prefs.getString('staff'));
     });
@@ -57,11 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
     for (String key in preferences.getKeys()) {
       preferences.remove(key);
     }
+
+    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
     setState(() {});
     // Navigate Page
     // Navigator.of(context).pushNamed(HomeScreen.routeName);
-    Navigator.pushReplacement(context,
-        new MaterialPageRoute(builder: (context) => new LoginScreen()));
   }
 
   @override
@@ -108,7 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     title: const Text('Customer'),
                     onTap: () {
-                      Navigator.of(context).pushNamed(CustomerScreen.routeName);
+                      Navigator.of(context)
+                          .pushNamed(CustomerScreen.routeName);
                     },
                   ),
 
@@ -136,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: const Text('Logout'),
                     onTap: () {
                       logout();
+                      redirectLoginPage();
                     },
                   ),
                 ],

@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Rani Jewellery',
           theme: ThemeData(
             primarySwatch: buildMaterialColor(Color(0xFF612e3e)),
-            accentColor: Colors.deepOrange,
+            accentColor: Colors.white,
             fontFamily: 'Lato',
           ),
           home: _checkValue == true ? HomeScreen() : LoginScreen(),

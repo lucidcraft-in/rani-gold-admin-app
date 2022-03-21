@@ -211,6 +211,10 @@ class _CreateCustomerScreenState extends State<CreateCustomerScreen> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter Phone ';
                           }
+                          else if(value.length != 10){
+
+                           return 'Please enter valid Phone number ';
+                          }
                           return null;
                         },
                         onSaved: (value) {

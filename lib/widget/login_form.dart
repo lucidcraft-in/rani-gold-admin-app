@@ -154,7 +154,7 @@ class _LoginFormState extends State<LoginForm> {
                 child: Text("Login",
                     textAlign: TextAlign.center,
                     style: style.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
+                        color: Colors.black, fontWeight: FontWeight.bold)),
               ),
             ),
           ]),

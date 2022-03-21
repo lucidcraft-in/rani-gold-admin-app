@@ -134,17 +134,43 @@ class User with ChangeNotifier {
     }
   }
 
-  Future<void> update(String id, UserModel userModel) async {
+  Future<bool> update(
+      String id, UserModel userModel, bool changeCustIdIS) async {
     try {
-      await collectionReference.doc(id).update({
-        'name': userModel.name,
-        'cust_id': userModel.custId,
-        'phone_no': userModel.phoneNo,
-        'address': userModel.address,
-        'place': userModel.place,
-        'schemeType': userModel.schemeType,
-      });
-      notifyListeners();
+      QuerySnapshot querySnapshot;
+
+      querySnapshot = await collectionReference.orderBy('cust_id').get();
+      var user =
+          querySnapshot.docs.where((doc) => doc['cust_id'] == userModel.custId);
+     
+      if (changeCustIdIS == true) {
+        if (user.length == 0) {
+       
+          await collectionReference.doc(id).update({
+            'name': userModel.name,
+            'cust_id': userModel.custId,
+            'phone_no': userModel.phoneNo,
+            'address': userModel.address,
+            'place': userModel.place,
+            'schemeType': userModel.schemeType,
+          });
+          notifyListeners();
+          return Future<bool>.value(false);
+        } else {
+          return Future<bool>.value(true);
+        }
+      } else {
+        await collectionReference.doc(id).update({
+          'name': userModel.name,
+          'cust_id': userModel.custId,
+          'phone_no': userModel.phoneNo,
+          'address': userModel.address,
+          'place': userModel.place,
+          'schemeType': userModel.schemeType,
+        });
+        notifyListeners();
+        return Future<bool>.value(false);
+      }
     } catch (e) {
       print(e);
     }
@@ -273,7 +299,6 @@ class User with ChangeNotifier {
             if (dbDate.isBefore(lastDayOfMonth) &&
                 dbDate.isAfter(firstDayofMonth)) {
               if (docss['transactionType'] == 0) {
-               
                 totalAmount = totalAmount + docss['amount'];
               }
             }
@@ -294,7 +319,7 @@ class User with ChangeNotifier {
               "balance": doc["balance"],
               "staffId": doc["staffId"],
               "schemeType": doc["schemeType"],
-              "totalAmount":totalAmount,
+              "totalAmount": totalAmount,
             };
             userlist.add(a);
           }
