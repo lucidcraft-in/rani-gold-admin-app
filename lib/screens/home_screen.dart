@@ -53,21 +53,36 @@ class _HomeScreenState extends State<HomeScreen> {
     // user = prefs.containsKey('user');
   }
 
-  logout() async {
+  
+
+  @override
+  Widget build(BuildContext context) {
+
+    logout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.getKeys();
     for (String key in preferences.getKeys()) {
       preferences.remove(key);
     }
 
-    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-    setState(() {});
+  setState((){
+
+  });
+
+  //  Navigator.pop(context);
+  //  Navigator.pop(context);
+   Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => new LoginScreen()),
+      (Route<dynamic> route) => false
+);
+  // Navigator.pushReplacement(context,
+  //           new MaterialPageRoute(builder: (context) => new LoginScreen()));
+   
+  
     // Navigate Page
     // Navigator.of(context).pushNamed(HomeScreen.routeName);
   }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
@@ -110,6 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     title: const Text('Customer'),
                     onTap: () {
+                        Navigator.pop(context);
                       Navigator.of(context)
                           .pushNamed(CustomerScreen.routeName);
                     },
@@ -118,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     title: const Text('Gold Rate'),
                     onTap: () {
+                       Navigator.pop(context);
                       Navigator.of(context).pushNamed(GoldRateScreen.routeName);
                     },
                   ),
@@ -131,6 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     title: const Text('Staff'),
                     onTap: () {
+                       Navigator.pop(context);
                       Navigator.of(context)
                           .pushNamed(StaffListScreen.routeName);
                     },
@@ -138,6 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     title: const Text('Change Password'),
                     onTap: () {
+                       Navigator.pop(context);
                       Navigator.of(context).pushNamed(PasswordChangeScreen.routeName);
                     },
                   ),
@@ -145,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: const Text('Logout'),
                     onTap: () {
                       logout();
-                      redirectLoginPage();
+                      // redirectLoginPage();
                     },
                   ),
                 ],
@@ -173,12 +192,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ListTile(
                     title: const Text('Customer'),
                     onTap: () {
+                       Navigator.pop(context);
                       Navigator.of(context).pushNamed(CustomerScreen.routeName);
                     },
                   ),
                   ListTile(
                     title: const Text('Change Password'),
                     onTap: () {
+                       Navigator.pop(context);
                       Navigator.of(context).pushNamed(PasswordChangeScreen.routeName);
                     },
                   ),

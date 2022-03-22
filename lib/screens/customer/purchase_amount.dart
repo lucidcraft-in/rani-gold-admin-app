@@ -24,7 +24,7 @@ class PurchaseAmountScreen extends StatefulWidget {
 
 class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
   final _formKey = GlobalKey<FormState>();
-     var Staff;
+  var Staff;
   AndroidNotificationChannel channel;
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   var _isLoading = false;
@@ -41,7 +41,7 @@ class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
     invoiceNo: '',
     category: '',
     discount: 0,
-     staffId: '',
+    staffId: '',
   );
 
   void requestPermission() async {
@@ -107,7 +107,7 @@ class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
   }
 
   @override
-  void didChangeDependencies() async{
+  void didChangeDependencies() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     setState(() {
@@ -199,12 +199,14 @@ class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
             title: Text('Purchase'),
             actions: [],
             leading: new IconButton(
-              icon: new Icon(Icons.arrow_back),
-              onPressed: () => Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new CustomerScreen())),
-            ),
+                icon: new Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new CustomerScreen()));
+                }),
           ),
           body: Container(
             child: new SingleChildScrollView(
@@ -233,7 +235,7 @@ class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
                             invoiceNo: _transaction.invoiceNo,
                             category: _transaction.category,
                             discount: _transaction.discount,
-                            staffId:_transaction.staffId,
+                            staffId: _transaction.staffId,
                           );
                         },
                         decoration: const InputDecoration(
@@ -268,7 +270,7 @@ class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
                             invoiceNo: value,
                             category: _transaction.category,
                             discount: _transaction.discount,
-                            staffId:_transaction.staffId,
+                            staffId: _transaction.staffId,
                           );
                         },
                         decoration: const InputDecoration(
@@ -322,7 +324,7 @@ class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
                                 invoiceNo: _transaction.invoiceNo,
                                 category: selectedValue,
                                 discount: _transaction.discount,
-                                staffId:_transaction.staffId,
+                                staffId: _transaction.staffId,
                               );
                             },
                             items: <String>[
@@ -359,7 +361,7 @@ class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
                             invoiceNo: _transaction.invoiceNo,
                             category: _transaction.category,
                             discount: _transaction.discount,
-                            staffId:_transaction.staffId,
+                            staffId: _transaction.staffId,
                           );
                         },
                         maxLines: 8,

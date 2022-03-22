@@ -43,7 +43,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
       setState(() {
         _isLoading = false;
         // Navigator.of(context).pop();
-        Navigator.pushNamed(context, StaffListScreen.routeName);
+        Navigator.pushReplacementNamed(context, StaffListScreen.routeName);
       });
     } catch (err) {
       print('error check =======================');
@@ -76,7 +76,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
             actions: [],
             leading: new IconButton(
               icon: new Icon(Icons.arrow_back),
-              onPressed: () => Navigator.push(
+              onPressed: () => Navigator.pushReplacement(
                   context,
                   new MaterialPageRoute(
                       builder: (context) => new StaffListScreen())),

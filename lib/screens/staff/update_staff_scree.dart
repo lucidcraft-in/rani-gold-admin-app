@@ -140,7 +140,7 @@ class _UpdateStaffScreenState extends State<UpdateStaffScreen> {
               ),
                leading: new IconButton(
               icon: new Icon(Icons.arrow_back),
-              onPressed: () => Navigator.push(
+              onPressed: () => Navigator.pushReplacement(
                   context,
                   new MaterialPageRoute(
                       builder: (context) => new StaffListScreen())),

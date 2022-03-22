@@ -7,6 +7,7 @@ import '../../providers/user.dart';
 import '../../providers/transaction.dart';
 import 'update_transaction.dart';
 import './customer_screen.dart';
+
 class CustomerViewScreen extends StatefulWidget {
   static const routeName = '/customer-view';
   CustomerViewScreen({Key key, this.user, this.db}) : super(key: key);
@@ -66,12 +67,14 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
               ),
             ],
             leading: new IconButton(
-              icon: new Icon(Icons.arrow_back),
-              onPressed: () => Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new CustomerScreen())),
-            ),
+                icon: new Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new CustomerScreen()));
+                }),
           ),
           body: Container(
             child: Column(
@@ -115,11 +118,12 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => PayAmountScreen(
-                                                userid: widget.user['id'],
-                                                token: widget.user['token'],
-                                                balance:
-                                                    widget.user['balance'])));
+                                            builder: (context) =>
+                                                PayAmountScreen(
+                                                    userid: widget.user['id'],
+                                                    token: widget.user['token'],
+                                                    balance: widget
+                                                        .user['balance'])));
                                   },
                                   style: ButtonStyle(
                                       shape: MaterialStateProperty.all<
@@ -152,8 +156,8 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                                 PurchaseAmountScreen(
                                                     userid: widget.user['id'],
                                                     token: widget.user['token'],
-                                                    balance:
-                                                        widget.user['balance'])));
+                                                    balance: widget
+                                                        .user['balance'])));
                                   },
                                   style: ButtonStyle(
                                       shape: MaterialStateProperty.all<
@@ -218,16 +222,21 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          padding: EdgeInsets.only(left: 30,right: 5,bottom: 5,top: 5),
-                                          width:
-                                              MediaQuery.of(context).size.width /
-                                                  1.0,
+                                          padding: EdgeInsets.only(
+                                              left: 30,
+                                              right: 5,
+                                              bottom: 5,
+                                              top: 5),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.0,
                                           child: Row(
                                             children: [
                                               Text(" "),
-                                               Expanded(
+                                              Expanded(
                                                   child: Text(
-                                              "Invoice No :",
+                                                "Invoice No :",
                                                 style: TextStyle(
                                                     fontFamily: 'latto',
                                                     fontSize: 11,
@@ -235,7 +244,8 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                               )),
                                               Expanded(
                                                   child: Text(
-                                                transactionList[index]['invoiceNo'],
+                                                transactionList[index]
+                                                    ['invoiceNo'],
                                                 style: TextStyle(
                                                     fontFamily: 'latto',
                                                     fontSize: 13,
@@ -243,7 +253,7 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                               )),
                                               Expanded(
                                                   child: Text(
-                                              "Category :",
+                                                "Category :",
                                                 style: TextStyle(
                                                     fontFamily: 'latto',
                                                     fontSize: 11,
@@ -251,7 +261,8 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                               )),
                                               Expanded(
                                                   child: Text(
-                                                transactionList[index]['category'],
+                                                transactionList[index]
+                                                    ['category'],
                                                 style: TextStyle(
                                                     fontFamily: 'latto',
                                                     fontSize: 13,
@@ -268,9 +279,10 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                       children: <Widget>[
                                         Container(
                                           padding: EdgeInsets.all(5.0),
-                                          width:
-                                              MediaQuery.of(context).size.width /
-                                                  1.6,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.6,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,
@@ -278,14 +290,15 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                               Container(
                                                 padding:
                                                     EdgeInsets.only(right: 10),
-                                                child: transactionList[index]
-                                                            ['transactionType'] ==
+                                                child: transactionList[index][
+                                                            'transactionType'] ==
                                                         0
                                                     ? FaIcon(
                                                         FontAwesomeIcons
                                                             .plusCircle,
                                                         size: 22,
-                                                        color: Colors.green[700],
+                                                        color:
+                                                            Colors.green[700],
                                                       )
                                                     : FaIcon(
                                                         FontAwesomeIcons

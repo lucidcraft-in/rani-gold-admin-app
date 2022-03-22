@@ -76,7 +76,7 @@ class _CreateCustomerScreenState extends State<CreateCustomerScreen> {
         setState(() {
           _isLoading = false;
           // Navigator.of(context).pop();
-          Navigator.pushNamed(context, CustomerScreen.routeName);
+          Navigator.pushReplacementNamed(context, CustomerScreen.routeName);
         });
       } else {
         final snackBar = SnackBar(
@@ -115,7 +115,7 @@ class _CreateCustomerScreenState extends State<CreateCustomerScreen> {
             actions: [],
             leading: new IconButton(
               icon: new Icon(Icons.arrow_back),
-              onPressed: () => Navigator.push(
+              onPressed: () => Navigator.pushReplacement(
                   context,
                   new MaterialPageRoute(
                       builder: (context) => new CustomerScreen())),

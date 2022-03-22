@@ -78,10 +78,14 @@ class _CustomerScreenState extends State<CustomerScreen> {
         centerTitle: true,
         title: appBarTitle,
         leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
-          onPressed: () => Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => new HomeScreen())),
-        ),
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new HomeScreen()));
+            }),
         actions: <Widget>[
           new IconButton(
             icon: actionIcon,
@@ -144,73 +148,88 @@ class _CustomerScreenState extends State<CustomerScreen> {
           children: <Widget>[
             Expanded(
                 child: userList != null
-                    ? filterList.length !=0 ? ListView.builder(
-                        itemCount: filterList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Column(
-                            children: <Widget>[
-                              //  Container(
-                              //     padding: EdgeInsets.fromLTRB(10,10,10,0),
-                              //     height: 100,
-                              //     width: double.maxFinite,
-                              //    child: Card(elevation: 5,),
-                              //  )
-                              ListTile(
-                                title: Text(' ${filterList[index]['name']}'),
-                                subtitle: Container(
-                                  padding: EdgeInsets.only(top: 10, left: 6),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(filterList[index]['custId']),
-                                      SizedBox(
-                                        height: 15,
+                    ? filterList.length != 0
+                        ? ListView.builder(
+                            itemCount: filterList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: <Widget>[
+                                  //  Container(
+                                  //     padding: EdgeInsets.fromLTRB(10,10,10,0),
+                                  //     height: 100,
+                                  //     width: double.maxFinite,
+                                  //    child: Card(elevation: 5,),
+                                  //  )
+                                  ListTile(
+                                    title:
+                                        Text(' ${filterList[index]['name']}'),
+                                    subtitle: Container(
+                                      padding:
+                                          EdgeInsets.only(top: 10, left: 6),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(filterList[index]['custId']),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text(filterList[index]['schemeType']),
+                                        ],
                                       ),
-                                      Text(filterList[index]['schemeType']),
-                                    ],
+                                    ),
+                                    leading: CircleAvatar(
+                                        child: Icon(Icons.account_box)),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CustomerViewScreen(
+                                                      db: db,
+                                                      user:
+                                                          filterList[index])));
+                                      // Navigator.of(context).pushNamed(
+                                      //     CustomerViewScreen.routeName,
+                                      //     arguments: {
+                                      //       userList: userList[index],
+                                      //       db: db
+                                      //     });
+                                    },
+                                    trailing: IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UpdateCustomerScreen(
+                                                        db: db,
+                                                        user:
+                                                            userList[index])));
+                                      },
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                leading: CircleAvatar(
-                                    child: Icon(Icons.account_box)),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              CustomerViewScreen(
-                                                  db: db,
-                                                  user: filterList[index])));
-                                  // Navigator.of(context).pushNamed(
-                                  //     CustomerViewScreen.routeName,
-                                  //     arguments: {
-                                  //       userList: userList[index],
-                                  //       db: db
-                                  //     });
-                                },
-                                trailing: IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                UpdateCustomerScreen(
-                                                    db: db,
-                                                    user: userList[index])));
-                                  },
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    color: Colors.blue,
+                                  Divider(
+                                    height: 20,
                                   ),
+                                ],
+                              );
+                            })
+                        : Container(
+                            padding: EdgeInsets.all(5),
+                            child: Center(
+                              child: Text(
+                                "No Result Found !",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Divider(
-                                height: 20,
-                              ),
-                             
-                            ],
-                          );
-                        }):Container(padding: EdgeInsets.all(5),child: Center(child: Text("No Result Found !",style: TextStyle(fontWeight: FontWeight.bold,),),),)
+                            ),
+                          )
                     : Center(
                         child: CircularProgressIndicator(),
                       ))

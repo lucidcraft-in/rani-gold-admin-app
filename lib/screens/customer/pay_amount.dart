@@ -26,7 +26,7 @@ class PayAmountScreen extends StatefulWidget {
 
 class _PayAmountScreenState extends State<PayAmountScreen> {
   final _formKey = GlobalKey<FormState>();
-   var Staff;
+  var Staff;
   AndroidNotificationChannel channel;
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   var _isLoading = false;
@@ -181,7 +181,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
     });
     if (_isInit) {
       // final userId = ModalRoute.of(context).settings.arguments as String;
-     
+
       _transaction = TransactionModel(
         customerName: _transaction.customerName,
         customerId: widget.userid,
@@ -192,7 +192,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
         invoiceNo: _transaction.invoiceNo,
         category: selectedValue,
         discount: _transaction.discount,
-          staffId: Staff['id'],
+        staffId: Staff['id'],
       );
     }
     _isInit = false;
@@ -267,12 +267,14 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
             title: Text('Reciept'),
             actions: [],
             leading: new IconButton(
-              icon: new Icon(Icons.arrow_back),
-              onPressed: () => Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new CustomerScreen())),
-            ),
+                icon: new Icon(Icons.arrow_back),
+                onPressed: () { 
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new CustomerScreen()));
+                }),
           ),
           body: Container(
             child: new SingleChildScrollView(
@@ -301,7 +303,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
                             invoiceNo: _transaction.invoiceNo,
                             category: _transaction.category,
                             discount: _transaction.discount,
-                            staffId:_transaction.staffId,
+                            staffId: _transaction.staffId,
                           );
                         },
                         decoration: const InputDecoration(
@@ -336,7 +338,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
                             invoiceNo: value,
                             category: _transaction.category,
                             discount: _transaction.discount,
-                             staffId:_transaction.staffId,
+                            staffId: _transaction.staffId,
                           );
                         },
                         decoration: const InputDecoration(
@@ -390,7 +392,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
                                 invoiceNo: _transaction.invoiceNo,
                                 category: selectedValue,
                                 discount: _transaction.discount,
-                                 staffId:_transaction.staffId,
+                                staffId: _transaction.staffId,
                               );
                             },
                             items: <String>[
@@ -427,7 +429,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
                             invoiceNo: _transaction.invoiceNo,
                             category: _transaction.category,
                             discount: _transaction.discount,
-                             staffId:_transaction.staffId,
+                            staffId: _transaction.staffId,
                           );
                         },
                         maxLines: 8,
@@ -464,7 +466,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
                             invoiceNo: _transaction.invoiceNo,
                             category: _transaction.category,
                             discount: double.tryParse(value),
-                             staffId:_transaction.staffId,
+                            staffId: _transaction.staffId,
                           );
                         },
                         decoration: const InputDecoration(
