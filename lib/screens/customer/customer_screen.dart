@@ -81,11 +81,12 @@ class _CustomerScreenState extends State<CustomerScreen> {
             icon: new Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
-              Navigator.pushReplacement(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new HomeScreen()));
-            }),
+            
+             Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new HomeScreen()));
+              }),
         actions: <Widget>[
           new IconButton(
             icon: actionIcon,

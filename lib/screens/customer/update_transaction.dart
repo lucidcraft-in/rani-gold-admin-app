@@ -233,6 +233,7 @@ class _UpdateTransactionState extends State<UpdateTransaction> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 16),
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             initialValue:
                                 widget.transaction['amount'].toString(),
                             validator: (value) {

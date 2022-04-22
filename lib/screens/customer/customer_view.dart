@@ -70,7 +70,7 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                 icon: new Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.pushReplacement(
+                   Navigator.push(
                       context,
                       new MaterialPageRoute(
                           builder: (context) => new CustomerScreen()));

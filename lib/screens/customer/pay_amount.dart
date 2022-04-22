@@ -286,6 +286,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 16),
                       child: TextFormField(
+                       keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Amount';
@@ -454,6 +455,7 @@ class _PayAmountScreenState extends State<PayAmountScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 16),
                       child: TextFormField(
+                         keyboardType: TextInputType.number,
                         initialValue: 0.toString(),
                         onSaved: (value) {
                           _transaction = TransactionModel(

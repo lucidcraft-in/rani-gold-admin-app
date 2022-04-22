@@ -218,6 +218,7 @@ class _PurchaseAmountScreenState extends State<PurchaseAmountScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 16),
                       child: TextFormField(
+                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Amount';

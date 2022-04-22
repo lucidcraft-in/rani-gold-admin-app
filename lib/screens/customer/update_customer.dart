@@ -252,6 +252,7 @@ class _UpdateCustomerScreenState extends State<UpdateCustomerScreen> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     child: TextFormField(
+                     keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter Phone ';
