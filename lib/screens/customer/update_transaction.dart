@@ -51,7 +51,7 @@ class _UpdateTransactionState extends State<UpdateTransaction> {
   void initState() {
     super.initState();
     // initialise();
-    oldValueFromDb = widget.transaction['amount'];
+    oldValueFromDb = widget.transaction['amount'].toDouble();
     selectedValue = widget.transaction['category'];
 
     _transaction = TransactionModel(

@@ -70,7 +70,7 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                 icon: new Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.pop(context);
-                   Navigator.push(
+                  Navigator.push(
                       context,
                       new MaterialPageRoute(
                           builder: (context) => new CustomerScreen()));
@@ -115,6 +115,10 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                               children: <Widget>[
                                 ElevatedButton(
                                   onPressed: () {
+                                    print(
+                                        "check pay amout button balance type");
+                                        print(widget.user['balance'].runtimeType);
+                                                        
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -123,7 +127,7 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                                     userid: widget.user['id'],
                                                     token: widget.user['token'],
                                                     balance: widget
-                                                        .user['balance'])));
+                                                        .user['balance'].toDouble())));
                                   },
                                   style: ButtonStyle(
                                       shape: MaterialStateProperty.all<
@@ -157,7 +161,7 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                                     userid: widget.user['id'],
                                                     token: widget.user['token'],
                                                     balance: widget
-                                                        .user['balance'])));
+                                                        .user['balance'].toDouble())));
                                   },
                                   style: ButtonStyle(
                                       shape: MaterialStateProperty.all<
@@ -330,7 +334,7 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                                 color: Colors.black87),
                                           ),
                                         ),
-                                        IconButton(
+                                      transactionList[index]['note'] !="Fine Amount"?  IconButton(
                                           onPressed: () {
                                             Navigator.push(
                                                 context,
@@ -346,7 +350,7 @@ class _CustomerViewScreenState extends State<CustomerViewScreen> {
                                             Icons.edit,
                                             color: Colors.blue,
                                           ),
-                                        ),
+                                        ):Container(child: Text(""),),
                                       ],
                                     ),
                                   ],

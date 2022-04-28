@@ -86,10 +86,11 @@ class Transaction with ChangeNotifier {
         for (var doc in querySnapshot.docs
             .where((element) => element.id.toString() == usrId.toString())
             .toList()) {
-          oldBalance = doc["balance"];
+          
+          oldBalance = doc["balance"].toDouble();
         }
       }
-
+      
       if (transactionModel.transactionType == 0) {
         newbalance = oldBalance + transactionModel.amount;
         if (transactionModel.discount != 0) {
